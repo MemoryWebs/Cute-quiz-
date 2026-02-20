@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Well Do You Know Me? 💗</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 28px;
+  color: #fff;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.question {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.option {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.option:hover {
+  background: #ffe6eb;
+}
+
+.option input {
+  margin-right: 8px;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #ff6f91;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ff4e78;
+}
+
+.result {
+  display: none;
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  margin-top: 30px;
+  animation: fadeIn 1s ease forwards;
+}
+
+.score {
+  font-size: 40px;
+  font-weight: bold;
+  color: #ff4e78;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.footer-note {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #888;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>How Well Do You Know Me? 💕</h1>
+<p class="subtitle">Answer honestly and let's see your score 🥰</p>
+
+<form id="quizForm"></form>
+
+<button onclick="calculateScore()">See My Score 💌</button>
+
+<div class="result" id="result">
+  <div class="score" id="scoreText"></div>
+  <div id="message"></div>
+  <div class="footer-note">Take a screenshot and send it 😉</div>
+</div>
+
+</div>
+
+<script>
+const quizData = [
+  {
+    question: "When I'm upset, what do I want most?",
+    options: ["Space", "Advice", "Hug", "“Tell me” + kiss"],
+    correct: 2
+  },
+  {
+    question: "What makes me blush?",
+    options: ["Eye contact", "Slow I love you", "Tight hug", "Late-night call"],
+    correct: 1
+  },
+  {
+    question: "If I had to choose one thing over everything, I’d choose:",
+    options: ["Peace", "Career", "Love", "Independence"],
+    correct: 2
+  },
+  {
+    question: "What makes me fall for you again?",
+    options: ["Saying sorry", "Understanding me", "Being protective", "Talking about future"],
+    correct: 1
+  },
+  {
+    question: "My love language is:",
+    options: ["Words", "Touch", "Time", "Effort"],
+    correct: 2
+  },
+  {
+    question: "When I’m silent in a fight, I’m:",
+    options: ["Done", "Thinking", "Hurt", "Waiting"],
+    correct: 2
+  },
+  {
+    question: "My favorite kind of date is:",
+    options: ["Fancy dinner", "Long drive", "Late-night talk", "Simple walk"],
+    correct: 2
+  },
+  {
+    question: "What compliment melts me?",
+    options: ["Beautiful", "Proud of you", "Different", "My peace"],
+    correct: 1
+  },
+  {
+    question: "When I feel insecure, I need:",
+    options: ["Distraction", "Reassurance", "Hug", "Patience"],
+    correct: 1
+  },
+  {
+    question: "What fixes my bad day fastest?",
+    options: ["Surprise call", "I’m proud of you", "Long hug", "Future plans"],
+    correct: 2
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+quizData.forEach((q, index) => {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  let html = `<div class="question">${index + 1}. ${q.question}</div>`;
+
+  q.options.forEach((option, i) => {
+    html += `
+      <label class="option">
+        <input type="radio" name="q${index}" value="${i}">
+        ${option}
+      </label>
+    `;
+  });
+
+  card.innerHTML = html;
+  form.appendChild(card);
+});
+
+function calculateScore() {
+  let score = 0;
+
+  quizData.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    if (selected && parseInt(selected.value) === q.correct) {
+      score++;
+    }
+  });
+
+  const percentage = Math.round((score / quizData.length) * 100);
+
+  let message = "";
+
+  if (percentage >= 90) {
+    message = "You understand me deeply 🥹💗 Dangerous level connection.";
+  } else if (percentage >= 70) {
+    message = "You really try and I see that 🫶 Keep loving me like this.";
+  } else if (percentage >= 40) {
+    message = "You think you know me... but there’s more to discover 😉";
+  } else {
+    message = "We seriously need to talk 😌💕";
+  }
+
+  document.getElementById("scoreText").innerText = percentage + "%";
+  document.getElementById("message").innerText = message;
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").scrollIntoView({ behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>

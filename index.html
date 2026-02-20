@@ -15,25 +15,33 @@
 
 body{
   min-height:100vh;
-  background:linear-gradient(135deg,#e8f0ea,#dfe9f3);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#2f3e46;
+  background:linear-gradient(135deg,#fdf2f8,#e9d5ff);
+  color:#4b3f4e;
 }
 
 /* Pages */
 .page{
   display:none;
-  width:100%;
   min-height:100vh;
+  width:100%;
+  display:flex;
   justify-content:center;
   align-items:center;
   padding:20px;
+  animation:fade 0.5s ease;
+}
+
+.page:not(.active){
+  display:none;
 }
 
 .page.active{
   display:flex;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 .container{
@@ -41,23 +49,23 @@ body{
   max-width:520px;
 }
 
-/* Glass Effect */
+/* Glass */
 .glass{
-  background:rgba(255,255,255,0.55);
-  backdrop-filter:blur(15px);
-  border-radius:25px;
+  background:rgba(255,255,255,0.65);
+  backdrop-filter:blur(18px);
+  border-radius:30px;
   padding:35px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.08);
-  border:1px solid rgba(255,255,255,0.4);
+  box-shadow:0 20px 50px rgba(0,0,0,0.08);
+  border:1px solid rgba(255,255,255,0.6);
   text-align:center;
 }
 
-/* Buttons */
+/* Button */
 button{
-  padding:12px 25px;
+  padding:12px 28px;
   border:none;
   border-radius:30px;
-  background:#6b9080;
+  background:linear-gradient(45deg,#f9a8d4,#c4b5fd);
   color:white;
   font-size:15px;
   cursor:pointer;
@@ -66,8 +74,7 @@ button{
 }
 
 button:hover{
-  background:#4f6f64;
-  transform:translateY(-2px);
+  transform:scale(1.05);
 }
 
 /* Quiz Scroll */
@@ -75,23 +82,22 @@ button:hover{
   max-height:60vh;
   overflow-y:auto;
   margin-bottom:15px;
-  padding-right:5px;
+  padding-right:6px;
 }
 
-/* Scrollbar */
 #quizForm::-webkit-scrollbar{
   width:6px;
 }
 #quizForm::-webkit-scrollbar-thumb{
-  background:#a4c3b2;
+  background:#f9a8d4;
   border-radius:10px;
 }
 
-/* Question Cards */
+/* Cards */
 .card{
-  background:rgba(255,255,255,0.75);
+  background:rgba(255,255,255,0.8);
   padding:15px;
-  border-radius:15px;
+  border-radius:18px;
   margin-bottom:15px;
   text-align:left;
 }
@@ -104,21 +110,23 @@ button:hover{
 .option{
   display:block;
   padding:8px;
-  border-radius:8px;
+  border-radius:10px;
   cursor:pointer;
   margin-bottom:5px;
   transition:0.2s;
 }
 
 .option:hover{
-  background:#edf6f2;
+  background:#fce7f3;
 }
 
 /* Result */
 .score{
-  font-size:55px;
+  font-size:60px;
   font-weight:bold;
-  color:#6b9080;
+  background:linear-gradient(45deg,#ec4899,#8b5cf6);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .message{
@@ -148,7 +156,7 @@ button:hover{
 <!-- INTRO -->
 <div class="page active" id="intro">
   <div class="container glass">
-    <h1>How Well Do You Know Me? 🤍</h1>
+    <h1>How Well Do You Know Me? 💗</h1>
     <p style="margin:15px 0;">Answer honestly and let's see your score.</p>
     <button onclick="startQuiz()">Start Quiz</button>
   </div>
@@ -167,7 +175,7 @@ button:hover{
   <div class="container glass">
     <div class="score" id="scoreText"></div>
     <div class="message" id="message"></div>
-    <p style="margin-top:15px;">Take a screenshot and send it 😉</p>
+    <p style="margin-top:15px;">Take a screenshot and send it 💌</p>
   </div>
 </div>
 
@@ -221,7 +229,7 @@ function calculateScore(){
   let score=0;
 
   quizData.forEach((q,index)=>{
-    const selected=document.querySelector(\`input[name="q\${index}"]:checked\`);
+    const selected=document.querySelector(`input[name="q${index}"]:checked`);
     if(selected && parseInt(selected.value)===q.correct){
       score++;
     }
@@ -231,9 +239,9 @@ function calculateScore(){
   let message="";
 
   if(percentage>=90){
-    message="You understand me deeply 🤍";
+    message="You understand me deeply 💗";
   }else if(percentage>=70){
-    message="You really try and I see that 🌿";
+    message="You really try and I see that 🥹";
   }else if(percentage>=40){
     message="You think you know me... but there's more 😉";
   }else{
@@ -254,7 +262,7 @@ function launchConfetti(){
     const c=document.createElement("div");
     c.classList.add("confetti");
     c.style.left=Math.random()*100+"vw";
-    c.style.background="#a4c3b2";
+    c.style.background=`hsl(${Math.random()*360},70%,80%)`;
     c.style.animationDuration=Math.random()*3+2+"s";
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),5000);
@@ -263,4 +271,4 @@ function launchConfetti(){
 </script>
 
 </body>
-</html>
+  </html>

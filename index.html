@@ -14,113 +14,121 @@
 }
 
 body{
-  background:#f9f6f3;
+  min-height:100vh;
+  background:linear-gradient(135deg,#fbc2eb,#a6c1ee);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
   color:#333;
-  overflow-x:hidden;
 }
 
-section{
-  height:100vh;
+/* Pages */
+.page{
+  position:absolute;
   width:100%;
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   padding:20px;
+  transition:0.5s;
+}
+
+.hidden{
+  display:none;
 }
 
 .container{
-  max-width:500px;
   width:100%;
+  max-width:520px;
+}
+
+/* Glass Card */
+.glass{
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.15);
+  border:1px solid rgba(255,255,255,0.3);
   text-align:center;
 }
 
-/* Intro Page */
-#intro{
-  background:linear-gradient(to bottom,#fcefee,#f9f6f3);
-}
-
-#intro h1{
-  font-size:28px;
-  margin-bottom:15px;
-}
-
-#intro p{
-  margin-bottom:30px;
-  color:#666;
-}
-
+/* Buttons */
 button{
   padding:12px 25px;
   border:none;
-  border-radius:25px;
-  background:#e8b4b8;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff9a9e,#fad0c4);
   color:white;
   font-size:15px;
   cursor:pointer;
   transition:0.3s;
+  margin-top:15px;
 }
 
 button:hover{
-  background:#d98c94;
+  transform:scale(1.05);
 }
 
-/* Quiz Page */
-#quiz{
-  display:none;
-  flex-direction:column;
+/* Quiz Scroll Fix */
+#quizForm{
+  max-height:60vh;
   overflow-y:auto;
-  padding-top:40px;
+  margin-bottom:15px;
+  padding-right:5px;
 }
 
+/* Scrollbar Cute */
+#quizForm::-webkit-scrollbar{
+  width:6px;
+}
+#quizForm::-webkit-scrollbar-thumb{
+  background:#ff9a9e;
+  border-radius:10px;
+}
+
+/* Question Cards */
 .card{
-  background:white;
-  border-radius:15px;
+  background:rgba(255,255,255,0.6);
   padding:15px;
+  border-radius:15px;
   margin-bottom:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.05);
   text-align:left;
 }
 
 .question{
-  margin-bottom:10px;
   font-weight:600;
+  margin-bottom:10px;
 }
 
 .option{
   display:block;
   padding:8px;
   border-radius:8px;
-  margin-bottom:6px;
   cursor:pointer;
+  margin-bottom:5px;
   transition:0.2s;
 }
 
 .option:hover{
-  background:#fcefee;
+  background:rgba(255,255,255,0.5);
 }
 
-/* Result Page */
-#resultPage{
-  display:none;
-  background:linear-gradient(to bottom,#fcefee,#f9f6f3);
-}
-
-.result-box{
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.05);
-}
-
+/* Result */
 .score{
-  font-size:50px;
-  color:#d98c94;
-  margin-bottom:10px;
+  font-size:60px;
+  font-weight:bold;
+  background:linear-gradient(45deg,#ff758c,#ff7eb3);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .message{
   margin-top:10px;
-  color:#555;
+  font-size:18px;
 }
 
 /* Confetti */
@@ -143,32 +151,30 @@ button:hover{
 <body>
 
 <!-- INTRO -->
-<section id="intro">
-  <div class="container">
+<div class="page" id="intro">
+  <div class="container glass">
     <h1>How Well Do You Know Me? 💕</h1>
-    <p>Answer honestly and let's see your score.</p>
+    <p style="margin:15px 0;">Answer honestly and let's see your score.</p>
     <button onclick="startQuiz()">Start Quiz</button>
   </div>
-</section>
+</div>
 
 <!-- QUIZ -->
-<section id="quiz">
-  <div class="container">
+<div class="page hidden" id="quiz">
+  <div class="container glass">
     <form id="quizForm"></form>
     <button onclick="calculateScore()">See My Score</button>
   </div>
-</section>
+</div>
 
 <!-- RESULT -->
-<section id="resultPage">
-  <div class="container">
-    <div class="result-box">
-      <div class="score" id="scoreText"></div>
-      <div class="message" id="message"></div>
-      <p style="margin-top:15px;color:#888;">Take a screenshot and send it 😉</p>
-    </div>
+<div class="page hidden" id="resultPage">
+  <div class="container glass">
+    <div class="score" id="scoreText"></div>
+    <div class="message" id="message"></div>
+    <p style="margin-top:15px;">Take a screenshot and send it 😉</p>
   </div>
-</section>
+</div>
 
 <script>
 const quizData = [
@@ -212,16 +218,15 @@ quizData.forEach((q,index)=>{
 });
 
 function startQuiz(){
-  document.getElementById("intro").style.display="none";
-  document.getElementById("quiz").style.display="flex";
-  window.scrollTo(0,0);
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
 }
 
 function calculateScore(){
   let score=0;
 
   quizData.forEach((q,index)=>{
-    const selected=document.querySelector(`input[name="q${index}"]:checked`);
+    const selected=document.querySelector(\`input[name="q\${index}"]:checked\`);
     if(selected && parseInt(selected.value)===q.correct){
       score++;
     }
@@ -243,19 +248,18 @@ function calculateScore(){
   document.getElementById("scoreText").innerText=percentage+"%";
   document.getElementById("message").innerText=message;
 
-  document.getElementById("quiz").style.display="none";
-  document.getElementById("resultPage").style.display="flex";
-  window.scrollTo(0,0);
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("resultPage").classList.remove("hidden");
 
   launchConfetti();
 }
 
 function launchConfetti(){
-  for(let i=0;i<60;i++){
+  for(let i=0;i<70;i++){
     const c=document.createElement("div");
     c.classList.add("confetti");
     c.style.left=Math.random()*100+"vw";
-    c.style.background=`hsl(${Math.random()*360},70%,70%)`;
+    c.style.background=\`hsl(\${Math.random()*360},70%,70%)\`;
     c.style.animationDuration=Math.random()*3+2+"s";
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),5000);

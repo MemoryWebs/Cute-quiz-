@@ -3,147 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How Well Do You Know Me? 💗</title>
+<title>How Well Do You Know Me?</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
-  background-size: 400% 400%;
-  animation: gradientMove 10s ease infinite;
-  padding: 20px;
+body{
+  background:#f9f6f3;
+  color:#333;
+  overflow-x:hidden;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+section{
+  height:100vh;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
 }
 
-.container {
-  max-width: 600px;
-  margin: auto;
-  color: white;
+.container{
+  max-width:500px;
+  width:100%;
+  text-align:center;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 28px;
+/* Intro Page */
+#intro{
+  background:linear-gradient(to bottom,#fcefee,#f9f6f3);
 }
 
-.subtitle {
-  text-align: center;
-  margin-bottom: 30px;
-  opacity: 0.9;
+#intro h1{
+  font-size:28px;
+  margin-bottom:15px;
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  transition: 0.3s;
+#intro p{
+  margin-bottom:30px;
+  color:#666;
 }
 
-.card:hover {
-  transform: translateY(-4px);
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:#e8b4b8;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-.question {
-  margin-bottom: 15px;
-  font-weight: 600;
+button:hover{
+  background:#d98c94;
 }
 
-.option {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 12px;
-  cursor: pointer;
-  background: rgba(255,255,255,0.2);
-  transition: 0.3s;
+/* Quiz Page */
+#quiz{
+  display:none;
+  flex-direction:column;
+  overflow-y:auto;
+  padding-top:40px;
 }
 
-.option:hover {
-  background: rgba(255,255,255,0.35);
+.card{
+  background:white;
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+  text-align:left;
 }
 
-.option input {
-  margin-right: 8px;
+.question{
+  margin-bottom:10px;
+  font-weight:600;
 }
 
-button {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 15px;
-  background: rgba(255,255,255,0.3);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
-  backdrop-filter: blur(10px);
-  transition: 0.3s;
+.option{
+  display:block;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:6px;
+  cursor:pointer;
+  transition:0.2s;
 }
 
-button:hover {
-  background: rgba(255,255,255,0.5);
+.option:hover{
+  background:#fcefee;
 }
 
-.result {
-  display: none;
-  text-align: center;
-  padding: 30px;
-  margin-top: 30px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  animation: fadeIn 1s ease forwards;
+/* Result Page */
+#resultPage{
+  display:none;
+  background:linear-gradient(to bottom,#fcefee,#f9f6f3);
 }
 
-.score {
-  font-size: 50px;
-  font-weight: bold;
-  margin-bottom: 10px;
+.result-box{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
 }
 
-.footer-note {
-  margin-top: 15px;
-  font-size: 14px;
-  opacity: 0.8;
+.score{
+  font-size:50px;
+  color:#d98c94;
+  margin-bottom:10px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px);}
-  to { opacity: 1; transform: translateY(0);}
+.message{
+  margin-top:10px;
+  color:#555;
 }
 
 /* Confetti */
-.confetti {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: white;
-  top: -10px;
-  animation: fall linear forwards;
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  top:-10px;
+  animation:fall linear forwards;
 }
 
-@keyframes fall {
-  to {
-    transform: translateY(100vh) rotate(360deg);
+@keyframes fall{
+  to{
+    transform:translateY(100vh) rotate(360deg);
   }
 }
 </style>
@@ -151,143 +142,126 @@ button:hover {
 
 <body>
 
-<div class="container">
+<!-- INTRO -->
+<section id="intro">
+  <div class="container">
+    <h1>How Well Do You Know Me? 💕</h1>
+    <p>Answer honestly and let's see your score.</p>
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+</section>
 
-<h1>How Well Do You Know Me? 💕</h1>
-<p class="subtitle">Answer honestly and let's see your score 🥰</p>
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="container">
+    <form id="quizForm"></form>
+    <button onclick="calculateScore()">See My Score</button>
+  </div>
+</section>
 
-<form id="quizForm"></form>
-
-<button onclick="calculateScore()">See My Score 💌</button>
-
-<div class="result" id="result">
-  <div class="score" id="scoreText"></div>
-  <div id="message"></div>
-  <div class="footer-note">Take a screenshot and send it 😉</div>
-</div>
-
-</div>
+<!-- RESULT -->
+<section id="resultPage">
+  <div class="container">
+    <div class="result-box">
+      <div class="score" id="scoreText"></div>
+      <div class="message" id="message"></div>
+      <p style="margin-top:15px;color:#888;">Take a screenshot and send it 😉</p>
+    </div>
+  </div>
+</section>
 
 <script>
 const quizData = [
-  {
-    question: "When I'm upset, what do I want most?",
-    options: ["Space", "Advice", "Hug", "Tell me + kiss"],
-    correct: 2
-  },
-  {
-    question: "What makes me blush?",
-    options: ["Eye contact", "Slow I love you", "Tight hug", "Late-night call"],
-    correct: 1
-  },
-  {
-    question: "If I had to choose one thing over everything, I’d choose:",
-    options: ["Peace", "Career", "Love", "Independence"],
-    correct: 2
-  },
-  {
-    question: "What makes me fall for you again?",
-    options: ["Saying sorry", "Understanding me", "Being protective", "Talking about future"],
-    correct: 1
-  },
-  {
-    question: "My love language is:",
-    options: ["Words", "Touch", "Time", "Effort"],
-    correct: 2
-  },
-  {
-    question: "When I’m silent in a fight, I’m:",
-    options: ["Done", "Thinking", "Hurt", "Waiting"],
-    correct: 2
-  },
-  {
-    question: "My favorite kind of date is:",
-    options: ["Fancy dinner", "Long drive", "Late-night talk", "Simple walk"],
-    correct: 2
-  },
-  {
-    question: "What compliment melts me?",
-    options: ["Beautiful", "Proud of you", "Different", "My peace"],
-    correct: 1
-  },
-  {
-    question: "When I feel insecure, I need:",
-    options: ["Distraction", "Reassurance", "Hug", "Patience"],
-    correct: 1
-  },
-  {
-    question: "What fixes my bad day fastest?",
-    options: ["Surprise call", "I’m proud of you", "Long hug", "Future plans"],
-    correct: 2
-  }
+  {question:"When I'm upset, what do I want most?",
+   options:["Space","Advice","Hug","Tell me + kiss"],correct:2},
+  {question:"What makes me blush?",
+   options:["Eye contact","Slow I love you","Tight hug","Late-night call"],correct:1},
+  {question:"If I had to choose one thing over everything, I’d choose:",
+   options:["Peace","Career","Love","Independence"],correct:2},
+  {question:"What makes me fall for you again?",
+   options:["Saying sorry","Understanding me","Being protective","Talking about future"],correct:1},
+  {question:"My love language is:",
+   options:["Words","Touch","Time","Effort"],correct:2},
+  {question:"When I’m silent in a fight, I’m:",
+   options:["Done","Thinking","Hurt","Waiting"],correct:2},
+  {question:"My favorite kind of date is:",
+   options:["Fancy dinner","Long drive","Late-night talk","Simple walk"],correct:2},
+  {question:"What compliment melts me?",
+   options:["Beautiful","Proud of you","Different","My peace"],correct:1},
+  {question:"When I feel insecure, I need:",
+   options:["Distraction","Reassurance","Hug","Patience"],correct:1},
+  {question:"What fixes my bad day fastest?",
+   options:["Surprise call","I’m proud of you","Long hug","Future plans"],correct:2}
 ];
 
-const form = document.getElementById("quizForm");
+const form=document.getElementById("quizForm");
 
-quizData.forEach((q, index) => {
-  const card = document.createElement("div");
+quizData.forEach((q,index)=>{
+  const card=document.createElement("div");
   card.classList.add("card");
-
-  let html = `<div class="question">${index + 1}. ${q.question}</div>`;
-
-  q.options.forEach((option, i) => {
-    html += `
+  let html=`<div class="question">${index+1}. ${q.question}</div>`;
+  q.options.forEach((opt,i)=>{
+    html+=`
       <label class="option">
-        <input type="radio" name="q${index}" value="${i}">
-        ${option}
-      </label>
-    `;
+      <input type="radio" name="q${index}" value="${i}">
+      ${opt}
+      </label>`;
   });
-
-  card.innerHTML = html;
+  card.innerHTML=html;
   form.appendChild(card);
 });
 
-function calculateScore() {
-  let score = 0;
+function startQuiz(){
+  document.getElementById("intro").style.display="none";
+  document.getElementById("quiz").style.display="flex";
+  window.scrollTo(0,0);
+}
 
-  quizData.forEach((q, index) => {
-    const selected = document.querySelector(`input[name="q${index}"]:checked`);
-    if (selected && parseInt(selected.value) === q.correct) {
+function calculateScore(){
+  let score=0;
+
+  quizData.forEach((q,index)=>{
+    const selected=document.querySelector(`input[name="q${index}"]:checked`);
+    if(selected && parseInt(selected.value)===q.correct){
       score++;
     }
   });
 
-  const percentage = Math.round((score / quizData.length) * 100);
+  const percentage=Math.round((score/quizData.length)*100);
+  let message="";
 
-  let message = "";
-
-  if (percentage >= 90) {
-    message = "You understand me deeply 🥹💗 Dangerous level connection.";
-  } else if (percentage >= 70) {
-    message = "You really try and I see that 🫶 Keep loving me like this.";
-  } else if (percentage >= 40) {
-    message = "You think you know me... but there’s more to discover 😉";
-  } else {
-    message = "We seriously need to talk 😌💕";
+  if(percentage>=90){
+    message="You understand me deeply 🥹💗";
+  }else if(percentage>=70){
+    message="You really try and I see that 🫶";
+  }else if(percentage>=40){
+    message="You think you know me... but there's more 😉";
+  }else{
+    message="We seriously need to talk 😌";
   }
 
-  document.getElementById("scoreText").innerText = percentage + "%";
-  document.getElementById("message").innerText = message;
-  document.getElementById("result").style.display = "block";
-  document.getElementById("result").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("scoreText").innerText=percentage+"%";
+  document.getElementById("message").innerText=message;
+
+  document.getElementById("quiz").style.display="none";
+  document.getElementById("resultPage").style.display="flex";
+  window.scrollTo(0,0);
 
   launchConfetti();
 }
 
-function launchConfetti() {
-  for (let i = 0; i < 80; i++) {
-    const confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
-    confetti.style.background = `hsl(${Math.random()*360}, 100%, 75%)`;
-    document.body.appendChild(confetti);
-
-    setTimeout(() => confetti.remove(), 5000);
+function launchConfetti(){
+  for(let i=0;i<60;i++){
+    const c=document.createElement("div");
+    c.classList.add("confetti");
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},70%,70%)`;
+    c.style.animationDuration=Math.random()*3+2+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
   }
 }
 </script>
 
 </body>
-  </html>
+</html>
